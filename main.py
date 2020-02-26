@@ -75,6 +75,16 @@ def attendance_daalo() :
     if not os.path.isfile(encoding_file) :
         print('Kya re?! Joking aa? How to recognize without data??!')
         return False
+    
+    known_names = []
+    known_encodings = []
+    
+    with open(encoding_file, 'rb') as f :
+        data = pickle.load()
+        
+    for i in data :
+        known_encodings += data[i]
+        known_names += ((i + ' ')*len(data[i])).split()
 
     img = fr.load_image_file(os.path.join(os.getcwd(), 'class_img.jpg'))
     faces = fr.face_locations(img)
